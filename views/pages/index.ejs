@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Liang's Ubc Registration course Helper</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+<body>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-12">
+    <div class="text-center">
+<h1>UBC Course Registration Helper</h1>
+<h3>Enter in eg ENGL 110 and find instructors, times, and other info</h3>
+<h4>ps: click on instructor name to go to Rate My Prof</h4>
+<h5>pps: if you sort by 'people registered' you can see which classes people like the most :p</h5>
+<h6>ppps: if you sort by 'non-restricted free space' you can see which classes are full/open</h5>
+<p>pppps: If you are a representative of UBC and would like me to take this down, get in touch with me at stuffbyliang@gmail.com. I apologize if I cause any damage, just trying to help</p>
+
+
+  </div>
+<form action="/" method="POST">
+  <input type="text" name="prefix" placeholder="course subject eg: MATH"></input>
+  <input type="text" name="number" placeholder="course number eg: 104"></input>
+  <input type="submit">
+</form>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Term</th>
+            <th>Instructor</th>
+            <th>Days</th>
+            <th>Time</th>
+            <th>Building</th>
+            <th>People Registered</th>
+            <th>non-restricted Free Space</th>
+            <th>Restricted Free Space</th>
+            <th>Restrictions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i = 0; i < data.length; i++) { %>
+        <tr>
+            <td><%= data[i].type %></td>
+            <td><a target="_blank" href="<%= data[i].link %>"><%= data[i].name %></a></td>
+            <td><%= data[i].term %></td>
+            <td><a target="_blank" href="https://www.ratemyprofessors.com/search.jsp?query=<%= data[i].instructor %>"><%= data[i].instructor %></a></td>
+            <td><%= data[i].days %></td>
+            <td><%= data[i].time %></td>
+            <td><%= data[i].building %></td>
+            <td><%= data[i].registered %></td>
+            <td><%= data[i].freeNonRestricted %></td>
+            <td><%= data[i].restricted %></td>
+            <td>
+              <% for (var j = 0; j < data[i].restrictions.length; j++) { %>
+                <p><%= data[i].restrictions[j] %></p>
+              <% } %>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#table').dataTable( {
+      "paging": false
+  });
+});
+</script>
+</html>
